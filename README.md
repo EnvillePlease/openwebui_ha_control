@@ -1,20 +1,22 @@
+
 # OpenWebUI Home Assistant Control
 
 ## Overview
 
-`openwebui_ha_control.py` is a Python module designed to provide seamless integration between Open WebUI and a Home Assistant instance. It exposes a set of tools for interacting with Home Assistant's REST API, allowing you to list entities and services, query entity states, and call services directly from Open WebUI.
+`openwebui_ha_control.py` is a Python module that provides a set of tools for interacting with a Home Assistant instance via its REST API. It is designed to be used with Open WebUI, enabling you to list entities, services, domains, and areas, query entity states, and call services directly from Python code.
 
 ## Features
 - **Configuration Management**: Uses Pydantic for robust validation of Home Assistant connection details (URL and API token).
 - **Service Listing**: Fetches all available Home Assistant services.
 - **Entity Listing**: Retrieves all entities (states) from Home Assistant.
-- **Domain Filtering**: Filters entities by domain (e.g., `light`, `switch`).
-- **Service Calls**: Allows you to call any Home Assistant service with custom data.
+- **Domain Listing**: Lists all unique domains present in your Home Assistant entities.
+- **Area Listing**: Lists all known areas, including both `area_id` and `area_name` (using the template API).
 - **Entity State Query**: Gets the current state of any entity by its ID.
+- **Service Calls**: Allows you to call any Home Assistant service with custom data.
 
 ## How It Works with Open WebUI
 Open WebUI can use this module to:
-- Display Home Assistant entities and services in its interface.
+- Display Home Assistant entities, services, domains, and areas in its interface.
 - Allow users to control devices, automations, and other Home Assistant features directly from the WebUI.
 - Provide feedback and error messages from Home Assistant to the user.
 
@@ -30,29 +32,41 @@ Open WebUI can use this module to:
 
 2. **List Services**
    ```python
-   services = tools.list_services()
+   services = tools.get_services()
    print(services)
    ```
 
 3. **List Entities**
    ```python
-   entities = tools.list_entities()
+   entities = tools.get_entities()
    print(entities)
    ```
 
-4. **Filter Entities by Domain**
+4. **List Domains**
    ```python
-   lights = tools.get_entities_by_domain("light")
-   print(lights)
+   domains = tools.get_domains()
+   print(domains)
    ```
 
-5. **Call a Service**
+5. **List Areas (with names)**
+   ```python
+   areas_json = tools.get_areas()
+   print(areas_json)  # JSON string with area_id and area_name
+   ```
+
+6. **Get Area Name**
+   ```python
+   area_name = tools.get_area_name("your_area_id")
+   print(area_name)
+   ```
+
+7. **Call a Service**
    ```python
    result = tools.call_service("light", "turn_on", {"entity_id": "light.living_room"})
    print(result)
    ```
 
-6. **Get Entity State**
+8. **Get Entity State**
    ```python
    state = tools.get_entity_state("light.living_room")
    print(state)
