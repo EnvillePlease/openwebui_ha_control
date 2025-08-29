@@ -33,7 +33,7 @@ class Tools:
 
         self.valves = self.Valves()
 
-    def get_home_device_domains(self):
+    def get_device_domains(self):
         v=self.valves
         client = Client(v.HA_URL, v.HA_API_TOKEN)
         
