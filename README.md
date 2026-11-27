@@ -1,4 +1,7 @@
 
+> [!WARNING]
+> **Deprecated and archived:** This repository has been archived and development has stopped. It is retained for reference only and will not receive updates or fixes.
+
 # OpenWebUI Home Assistant Control
 
 ## Overview
